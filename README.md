@@ -26,3 +26,6 @@ The application maintains its existing SQLite database (`/var/data/blc.sqlite`).
 ## Local development
 
 Requires Node 22.16.0 or compatible (built-in SQLite). Run `npm test`, then `ADMIN_PIN=yourpin npm start` (set environment variables appropriately on Windows). Default local port 3001. Set DB_PATH to a separate temporary file for a clean local test. The existing Render configuration is unchanged.
+
+## v1.2.1
+Adds only live matchup projections and a collapsible Around the League feed. No new scoring rules or tabs. Existing SQLite data remains compatible. Projections use a smoothed recent completion rate, not betting odds.

@@ -1,0 +1,3 @@
+import test from 'node:test';import assert from 'node:assert/strict';import {newSeason,compute,launchSeason} from '../server/league.js';import {extras,projection} from '../server/extras.js';
+const fixture=()=>{const s=newSeason();launchSeason(s);s.players=[{id:'a',name:'A',joinWeek:1},{id:'b',name:'B',joinWeek:1}];s.logs={'a|2026-11-16':{workout:true,reading:true},'b|2026-11-16':{workout:true}};return s;};
+test('projection respects score, ceiling and probabilities',()=>{const s=fixture(),t={day:'2026-11-16',hour:15},c=compute(s,t),w=c.weeks[0],m=w.matches[0],p=projection(s,c,w,m,t);assert.ok(p.a>=m.sa&&p.a<=35);assert.ok(p.b>=m.sb&&p.b<=35);assert.equal(p.win+p.tie+p.loss,100);assert.equal(extras(s,c,t).weeks[1].matches[0].projection,null);});
