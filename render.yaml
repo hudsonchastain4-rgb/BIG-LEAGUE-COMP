@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: big-league-competition
+    runtime: node
+    plan: starter
+    buildCommand: npm test
+    startCommand: npm start
+    healthCheckPath: /api/state
+    envVars:
+      - key: NODE_VERSION
+        value: 22.16.0
+      - key: DB_PATH
+        value: /var/data/blc.sqlite
+      - key: ADMIN_PIN
+        sync: false
+    disk:
+      name: blc-data
+      mountPath: /var/data
+      sizeGB: 1
