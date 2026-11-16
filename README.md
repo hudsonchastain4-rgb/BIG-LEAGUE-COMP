@@ -29,3 +29,7 @@ Requires Node 22.16.0 or compatible (built-in SQLite). Run `npm test`, then `ADM
 
 ## v1.2.1
 Adds only live matchup projections and a collapsible Around the League feed. No new scoring rules or tabs. Existing SQLite data remains compatible. Projections use a smoothed recent completion rate, not betting odds.
+
+## v1.3.0: Profile and interface update
+
+Replace the existing repository files (keep `.git` and the existing Render disk). No new environment variables are required. The scoring and projection modules are unchanged. Participants can view profiles by selecting the Profile tab or clicking a team avatar, and edit their selected profile's display name, handle, team name, bio, tagline, color, decorative emblem, photo and logo. Profile edits preserve the underlying participant ID and administrator roster name. Existing logos are reused; avatar images are stored separately in the existing SQLite image table. The honor system still applies to all profile edits. Nutrition changes remain subject to the existing weekly lock, and are managed on the profile or check-in page. The home page includes a prominent Log today button. This release does not include wearable integrations.
