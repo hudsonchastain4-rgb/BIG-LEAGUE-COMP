@@ -1,3 +1,5 @@
+export const trackTargets={water:80,steps:8000};
+export const trackedValue=(s,id,date,category)=>{const saved=s.progress?.[`${id}|${date}`]?.[category];return Number.isSafeInteger(saved)&&saved>=0?saved:(s.logs?.[`${id}|${date}`]?.[category]?trackTargets[category]:0);};
 export const categories=[{id:'workout',name:'Workout',detail:'30 minutes of intentional exercise'},{id:'reading',name:'Reading',detail:'15 minutes of reading'},{id:'water',name:'Hydration',detail:'80 oz. of water'},{id:'nutrition',name:'Nutrition',detail:'Weekly personal nutrition goal'},{id:'steps',name:'Steps',detail:'8,000 steps'}];
 export const addDays=(d,n)=>new Date(Date.parse(d+'T12:00:00Z')+n*86400000).toISOString().slice(0,10);
 export const clock=(now=new Date())=>{const p=Object.fromEntries(new Intl.DateTimeFormat('en-CA',{timeZone:'America/New_York',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',hourCycle:'h23'}).formatToParts(now).map(x=>[x.type,x.value]));return {day:`${p.year}-${p.month}-${p.day}`,hour:+p.hour};};
@@ -31,7 +33,7 @@ export function compute(s,t=clock()){
  for(const r of rows){r.total=r.raw+r.bonus;r.days=Math.max(0,Math.min(s.weeks*7,(Date.parse(t.day)-Date.parse(monday(s,Math.max(r.joinWeek,testing?1:practice+1))))/86400000+1,(r.exitWeek?r.exitWeek-Math.max(r.joinWeek,testing?1:practice+1):s.weeks-Math.max(r.joinWeek,testing?1:practice+1)+1)*7));}
  return {testing,officialStart:official,rows:rows.sort((a,b)=>b.total-a.total||b.raw-a.raw||a.name.localeCompare(b.name)),recordRank:rank().map(r=>r.id),weeks,byWeek,champion,seeds};
 }
-export function newSeason(start='2027-01-04',weeks=52){return {start,weeks,players:[],logs:{},goals:{},schedule:{},settings:{},audit:[]};}
+export function newSeason(start='2027-01-04',weeks=52){return {start,weeks,players:[],logs:{},progress:{},goals:{},schedule:{},settings:{},audit:[]};}
 
 export function launchSeason(s){
  if(s.practiceWeeks!==undefined||s.start!=='2027-01-04')return false;
